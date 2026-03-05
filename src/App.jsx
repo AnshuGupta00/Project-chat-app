@@ -3,8 +3,9 @@ import './App.css'
 import Header from './Header'
 import Header2 from './Header2'
 import Third from './Third'
-function App() {
+import { Link } from 'react-router-dom'
 
+function App() {
   return (
     <div className="min-h-screen bg-black">
       
@@ -28,15 +29,17 @@ function App() {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 text-white font-semibold">
-  
+
+   <Link to="/login">
   <button className="w-full sm:w-auto hover:text-gray-300 transition">
     Login
   </button>
+  </Link>
 
+  
   <button className="w-full sm:w-auto px-5 py-2 bg-green-500 rounded-lg hover:bg-green-600 transition">
     Download
   </button>
-
 </div>
 
         {/* Mobile Menu Icon */}
