@@ -19,7 +19,10 @@ function App() {
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex items-center text-white font-semibold gap-8 cursor-pointer">
-          <li className="hover:text-orange-400 transition">Features</li>
+          <Link to="/Features">
+            <li className="hover:text-orange-400 transition">Features</li>
+          </Link>
+          
           <li className="hover:text-orange-400 transition">Privacy</li>
           <li className="hover:text-orange-400 transition">Help Center</li>
           <li className="hover:text-orange-400 transition">Blog</li>
@@ -49,6 +52,8 @@ function App() {
       
       </nav>
 <Header />
+<Header2 />
+<Third />
     </div>
   )
   

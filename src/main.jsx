@@ -3,12 +3,15 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import Login from './Login.jsx'
+import Features from './pages/Features.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // configure router with home and login routes
 const router = createBrowserRouter([
   { path: '/', element: <App /> },
   { path: '/login', element: <Login /> },
+  { path: '/Features', element: <Features /> },
+
 ]);
 
 createRoot(document.getElementById('root')).render(
