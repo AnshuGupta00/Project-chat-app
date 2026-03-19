@@ -13,7 +13,7 @@ function Header2() {
         />
       </div>
       {/* Text Section */}
-      <div className="mt-10 text-center">
+      <div className="mt-4 text-center">
         <p className="text-2xl sm:text-4xl md:text-6xl font-semibold leading-tight">
           With private messaging and calling, you can be yourself, speak freely and feel close to the most important people in your life no matter where they are.
         </p>
@@ -31,8 +31,7 @@ function Header2() {
   {/* Left Content */}
   <div className="flex flex-col text-center md:text-left max-w-xl">
     <p className="text-3xl sm:text-4xl font-semibold leading-tight">
-      Never miss a <br />
-      moment with <br />
+      Never miss a <br /> moment with <br />
       voice and video <br />
       calls
     </p>

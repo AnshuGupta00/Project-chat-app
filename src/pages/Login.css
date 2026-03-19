@@ -1,0 +1,66 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, rgba(0, 255, 255, 0.2), #000 60%);
+}
+
+.login-form {
+  width: min(420px, 90%);
+  padding: 2rem;
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.form-control {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.form-control label {
+  position: absolute;
+  left: 1rem;
+  top: 1.1rem;
+  display: flex;
+  gap: 0.1em;
+  color: rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+  font-size: 0.85rem;
+}
+
+.form-control label span {
+  display: inline-block;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.form-control:focus-within label span {
+  transform: translateY(-1.2rem);
+  opacity: 0.85;
+}
+
+.password {
+  width: min(420px, 90%);
+  padding: 2rem;
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1.25rem;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #059669;
+}

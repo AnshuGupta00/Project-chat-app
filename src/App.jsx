@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 function App() {
   return (
-    <div className="min-h-screen bg-black">
+  <div className="max-h-min w-full  bg-black">
       
       {/* Navbar */}
       <nav className="flex items-center justify-between px-8 py-4 bg-amber-700 bg-fixed">
@@ -23,7 +23,9 @@ function App() {
             <li className="hover:text-orange-400 transition">Features</li>
           </Link>
           
+          <Link to="/Privacy">
           <li className="hover:text-orange-400 transition">Privacy</li>
+          </Link>
           <li className="hover:text-orange-400 transition">Help Center</li>
           <li className="hover:text-orange-400 transition">Blog</li>
           <li className="hover:text-orange-400 transition">For Business</li>
@@ -39,10 +41,11 @@ function App() {
   </button>
   </Link>
 
-  
+   <Link to="/Download">
   <button className="w-full sm:w-auto px-5 py-2 bg-green-500 rounded-lg hover:bg-green-600 transition">
     Download
   </button>
+</Link>
 </div>
 
         {/* Mobile Menu Icon */}
