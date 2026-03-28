@@ -1,13 +1,12 @@
-// Import the functions you need from the SDKs you need
+// 🔥 Import core Firebase
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { data } from "autoprefixer";
+// 🔥 Services
 import { getAuth } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
-
-
+// 🔑 Config
 const firebaseConfig = {
   apiKey: "AIzaSyBTwODVR5AoJTthhu1tlvzEtmBnEiI_soA",
   authDomain: "chatapp-react-668d7.firebaseapp.com",
@@ -19,7 +18,10 @@ const firebaseConfig = {
   measurementId: "G-P7RECC1TSV",
 };
 
-// Initialize Firebase
+// ✅ Initialize app
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// ✅ Export services (ONLY HERE)
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const analytics = getAnalytics(app);

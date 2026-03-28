@@ -7,6 +7,7 @@ import Features from './pages/Features.jsx'
 import Privacy from './pages/Privacy.jsx'
 import Downloads from './pages/Downloads.jsx'
 import Signup from './pages/Signup.jsx'
+import UsersList from './components/Chat/userlist.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 // configure router with home and login routes
@@ -17,10 +18,12 @@ const router = createBrowserRouter([
   { path: '/Privacy', element: <Privacy /> },
   { path: '/Download', element: <Downloads /> },
   { path: '/Signup', element: <Signup /> },
+  { path: '/userlist', element: <UsersList /> },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    
     <RouterProvider router={router} />
   </StrictMode>,
 )

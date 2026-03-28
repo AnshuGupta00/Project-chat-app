@@ -6,6 +6,16 @@ import { auth } from '../firebase';
 import { getAuth } from "firebase/auth";
 
 
+
+async function loglogin(user) {
+   await addDoc(collection(db, "loginHistory"), {
+    uid: user.uid,
+    email: user.email,
+    timestamp: new Date()
+  });
+}
+
+
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

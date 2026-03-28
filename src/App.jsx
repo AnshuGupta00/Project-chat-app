@@ -3,6 +3,7 @@ import './App.css'
 import Header from './Header'
 import Header2 from './Header2'
 import Third from './Third'
+import UsersList from './components/Chat/userlist'
 import { Link } from 'react-router-dom'
 
 
@@ -30,7 +31,10 @@ function App() {
           <li className="hover:text-orange-400 transition">Help Center</li>
           <li className="hover:text-orange-400 transition">Blog</li>
           <li className="hover:text-orange-400 transition">For Business</li>
-          <li className="hover:text-orange-400 transition">App</li>
+          <Link to="/userlist">
+            <li className="hover:text-orange-400 transition">App</li>
+          </Link>
+        
         </ul>
 
         {/* Buttons */}
