@@ -7,7 +7,7 @@ import Signup from "../../pages/Signup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function UsersList() {
-  const [users, setUsers] = useState([]);
+  const [User, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -19,7 +19,7 @@ function UsersList() {
           ...doc.data(),
         }));
 
-        console.log("Users:", usersArray); // DEBUG
+        console.log("Users:", UserArray); // DEBUG
         setUsers(usersArray);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -33,14 +33,14 @@ function UsersList() {
     <div className="users-container">
       <h3>Users</h3>
 
-      {FirstName.length === 0 ? (
+      {User.length === 0 ? (
         <p>No users found</p>
       ) : (
-        users.map((user) => (
-          <div className="user-card" key={user.FirstName}>
-            <div className="user-info">
-              <p>{user.FirstName} {user.LastName}</p>
-              <span>{user.email}</span>
+        User.map((User) => (
+          <div className="user-card" key={user.id}>
+            <div className="user-info">``
+              <p>{User.firstName} {User.lastName}</p>
+              <span>{User.email}</span>
             </div>
           </div>
         ))
