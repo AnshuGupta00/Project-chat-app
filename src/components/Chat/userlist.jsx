@@ -1,46 +1,94 @@
 import React, { useEffect, useState } from "react";
 import "./userlist.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
-import Login from "../../pages/Login";
-import Signup from "../../pages/Signup";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
-function UsersList() {
-  const [User, setUsers] = useState([]);
+function UsersList({ onSelectUser }) {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "Firstname"));
+    const currentUser = auth.currentUser;
 
-        const usersArray = querySnapshot.docs.map((doc) => ({
+    if (!currentUser) {
+      setLoading(false);
+      return;
+    }
+
+    const q = query(
+      collection(db, "users"),
+      where("uid", "!=", currentUser.uid) // excludes logged-in user (from Login.jsx)
+    );
+
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => {
+        const usersArray = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-
-        console.log("Users:", UserArray); // DEBUG
         setUsers(usersArray);
-      } catch (error) {
+        setLoading(false);
+      },
+      (error) => {
         console.error("Error fetching users:", error);
+        setLoading(false);
       }
-    };
+    );
 
-    fetchUsers();
+    return () => unsubscribe(); // cleanup on unmount
   }, []);
+
+  // Filter users by search input
+  const filteredUsers = users.filter((user) => {
+    const fullName = `${user.firstName} ${user.lastName}`.toLowerCase(); // matches Signup.jsx fields
+    return (
+      fullName.includes(search.toLowerCase()) ||
+      user.email.toLowerCase().includes(search.toLowerCase())
+    );
+  });
+
+  if (loading) {
+    return (
+      <div className="users-container">
+        <p>Loading users...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="users-container">
       <h3>Users</h3>
 
-      {User.length === 0 ? (
+      {/* Search bar */}
+      <input
+        type="text"
+        placeholder="Search by name or email..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="search-input"
+      />
+
+      {filteredUsers.length === 0 ? (
         <p>No users found</p>
       ) : (
-        User.map((User) => (
-          <div className="user-card" key={user.id}>
-            <div className="user-info">``
-              <p>{User.firstName} {User.lastName}</p>
-              <span>{User.email}</span>
+        filteredUsers.map((user) => (
+          <div
+            className="user-card"
+            key={user.id}
+            onClick={() => onSelectUser && onSelectUser(user)} // open chat on click
+          >
+            {/* Avatar using first letter of firstName */}
+            <div className="user-avatar">
+              {user.firstName?.charAt(0).toUpperCase()}
+            </div>
+
+            <div className="user-info">
+              {/* firstName & lastName match Signup.jsx */}
+              <p>{user.firstName} {user.lastName}</p>
+              <span>{user.email}</span>
             </div>
           </div>
         ))
