@@ -3,6 +3,9 @@ import "./userlist.css";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import { auth } from "../../firebase";
+import ChatPage from "../../pages/Chatpage";
+import { useNavigate } from "react-router-dom";
+
 
 function UsersList({ onSelectUser }) {
   const [users, setUsers] = useState([]);

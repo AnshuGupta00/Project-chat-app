@@ -1,26 +1,23 @@
 import React, { useEffect, useState, useRef } from "react";
-import {
-  collection, addDoc, onSnapshot,
-  query, orderBy, serverTimestamp
-} from "firebase/firestore";
+import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../../firebase";
+import "./Chat.css";
+// ❌ removed ChatPage import (circular!)
+// ❌ removed useNavigate (unused)
 
 function Chat({ selectedUser }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [currentUser, setCurrentUser] = useState(auth.currentUser); // ✅ state
   const bottomRef = useRef(null);
 
-  const currentUser = auth.currentUser;
-
-  // Create a unique chat room ID for two users
   const getChatId = () => {
     const ids = [currentUser.uid, selectedUser.uid].sort();
-    return `${ids[0]}_${ids[1]}`; // always same ID for both users
+    return `${ids[0]}_${ids[1]}`;
   };
 
-  // Fetch messages in real-time
   useEffect(() => {
-    if (!selectedUser) return;
+    if (!selectedUser || !currentUser) return;
 
     const chatId = getChatId();
     const q = query(
@@ -37,30 +34,26 @@ function Chat({ selectedUser }) {
     });
 
     return () => unsubscribe();
-  }, [selectedUser]);
+  }, [selectedUser, currentUser]);
 
-  // Auto scroll to bottom
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Send message
   const sendMessage = async () => {
-    if (!newMessage.trim()) return;
+    if (!newMessage.trim() || !currentUser) return;
 
     const chatId = getChatId();
-
     await addDoc(collection(db, "chats", chatId, "messages"), {
       text: newMessage,
       senderId: currentUser.uid,
-      senderName: currentUser.displayName || "User",
+      senderName: currentUser.displayName || currentUser.email,
       createdAt: serverTimestamp(),
     });
 
     setNewMessage("");
   };
 
-  // Send on Enter key
   const handleKeyDown = (e) => {
     if (e.key === "Enter") sendMessage();
   };
@@ -72,10 +65,9 @@ function Chat({ selectedUser }) {
       </div>
     );
   }
-  
+
   return (
     <div className="chat-container">
-      {/* Header */}
       <div className="chat-header">
         <div className="chat-avatar">
           {selectedUser.firstName?.charAt(0).toUpperCase()}
@@ -83,12 +75,11 @@ function Chat({ selectedUser }) {
         <h3>{selectedUser.firstName} {selectedUser.lastName}</h3>
       </div>
 
-      {/* Messages */}
       <div className="chat-messages">
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`message ${msg.senderId === currentUser.uid ? "sent" : "received"}`}
+            className={`message ${msg.senderId === currentUser?.uid ? "sent" : "received"}`}
           >
             <p>{msg.text}</p>
           </div>
@@ -96,7 +87,6 @@ function Chat({ selectedUser }) {
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
       <div className="chat-input">
         <input
           type="text"
@@ -110,4 +100,5 @@ function Chat({ selectedUser }) {
     </div>
   );
 }
-export default Chat;
+
+export default Chat; 

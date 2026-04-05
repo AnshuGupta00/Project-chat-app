@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // ✅ only once
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -12,12 +12,11 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in:", userCredential.user);
-      navigate("/chat"); // ✅ redirect after login
+      navigate("/chat"); // ✅ redirects to ChatPage
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -64,7 +63,7 @@ function Login() {
         </button>
 
         <Link to="/Signup">
-          <button type="button" className="submit-btn"> {/* ✅ type="button" */}
+          <button type="button" className="submit-btn">
             Sign up
           </button>
         </Link>

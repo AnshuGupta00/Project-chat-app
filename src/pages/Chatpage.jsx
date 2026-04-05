@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UsersList from "../components/Chat/userlist";
+import UsersList from "../components/Chat/userlist"; // ✅ capital U
 import Chat from "../components/Chat/Chat";
 import "./ChatPage.css";
 
@@ -10,7 +10,7 @@ function ChatPage() {
     <div className="chatpage-container">
       {/* Left Side - Users List */}
       <div className="chatpage-sidebar">
-        <UsersList onSelectUser={setSelectedUser} />
+        <UsersList onSelectUser={setSelectedUser} /> {/* ✅ matches import */}
       </div>
 
       {/* Right Side - Chat Window */}
