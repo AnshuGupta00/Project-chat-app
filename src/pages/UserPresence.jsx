@@ -24,7 +24,7 @@ export const UserPresence =(userID )=> {
         return ()=>{
             set(userStatusRef,{
                 state:"offline",
-                lastChanged: serverTimestamo(),
+                lastChanged: serverTimestamp(),
             });
         };
 
