@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 import "./Chat.css";
-// ❌ removed ChatPage import (circular!)
-// ❌ removed useNavigate (unused)
 
 function Chat({ selectedUser }) {
   const [messages, setMessages] = useState([]);
@@ -11,6 +9,14 @@ function Chat({ selectedUser }) {
   const [currentUser, setCurrentUser] = useState(auth.currentUser); // ✅ state
   const bottomRef = useRef(null);
 
+
+ const formatTime = (timestamp) => {
+  if (!timestamp?.toDate) return ""; 
+  return timestamp.toDate().toLocaleTimeString([], { 
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
   const getChatId = () => {
     const ids = [currentUser.uid, selectedUser.uid].sort();
     return `${ids[0]}_${ids[1]}`;
@@ -82,6 +88,7 @@ function Chat({ selectedUser }) {
             className={`message ${msg.senderId === currentUser?.uid ? "sent" : "received"}`}
           >
             <p>{msg.text}</p>
+            <span className="message-time">{formatTime(msg.createdAt)}</span>
           </div>
         ))}
         <div ref={bottomRef} />
