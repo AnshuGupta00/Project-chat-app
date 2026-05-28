@@ -16,7 +16,7 @@ function Login() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("User logged in:", userCredential.user);
-      navigate("/chat"); // ✅ redirects to ChatPage
+      navigate("/chatpage");  // ✅ correct route; 
     } catch (error) {
       console.error(error);
       alert(error.message);
