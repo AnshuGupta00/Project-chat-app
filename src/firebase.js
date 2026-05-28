@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
+import { getDatabase } from "firebase/database"; // ✅ Realtime Database (if needed)
 
 // 🔑 Config
 const firebaseConfig = {
@@ -25,3 +26,4 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const analytics = getAnalytics(app);
+export const rtdb = getDatabase(app); // ✅ Realtime Database (if needed)
