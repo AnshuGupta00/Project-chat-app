@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import UsersList from "../components/Chat/userlist"; // ✅ capital U
+import { UserPresence } from "./UserPresence"; // ✅ matches export from UserPresence.jsx
+import UsersList from "../components/Chat/userlist"; // ✅ capital U in UsersList to match component name
 import Chat from "../components/Chat/Chat";
+import { auth } from "../firebase"; // ✅ import auth to get current user
 import "./ChatPage.css";
 
 function ChatPage() {
   const [selectedUser, setSelectedUser] = useState(null);
+  const currentUser= auth.currentUser; // Assuming you have a way to get the current user
+  UserPresence(currentUser?. uid);// ✅ pass the current user's UID to UserPresence
+
 
   return (
     <div className="chatpage-container">
