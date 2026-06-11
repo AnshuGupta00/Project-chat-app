@@ -3,7 +3,7 @@ import { UserPresence } from "./UserPresence"; // ✅ matches export from UserPr
 import UsersList from "../components/Chat/userlist"; // ✅ capital U in UsersList to match component name
 import Chat from "../components/Chat/Chat";
 import { auth } from "../firebase"; // ✅ import auth to get current user
-import "./ChatPage.css";
+import "./Chatpage.css";
 
 function ChatPage() {
   const [selectedUser, setSelectedUser] = useState(null);
