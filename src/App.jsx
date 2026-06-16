@@ -1,4 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import './App.css'
+import Header from './Header'
+import Header2 from './Header2'
+import Third from './Third'
+import { Link } from 'react-router-dom'
+import Signup from "./pages/Signup";
 
 const DESTINATIONS = [
   { id: 1, name: "Santorini", country: "GREECE",    price: "From $799",   tag: "Popular",   image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=500&q=80" },
@@ -546,7 +552,7 @@ export default function WanderlustTravel() {
     return () => { document.body.style.overflow = ""; };
   }, [drawerOpen]);
 
-  const NAV_ITEMS = ["HOME", "DESTINATIONS", "EXPERIENCES", "DEALS", "ABOUT", "CONTACT"];
+  const NAV_ITEMS = ["Features", "Privacy", "Help Center", "Blog", "For Bussiness", "App"];
 
   return (
     <>
@@ -561,7 +567,8 @@ export default function WanderlustTravel() {
             onKeyDown={e => e.key === "Enter" && (setActiveLink(n), setDrawerOpen(false))}
           >{n}</a>
         ))}
-        <button className="btn-gold" style={{ fontSize: ".85rem", border: "none" }}>Book Now</button>
+        
+          <button className="btn-gold" style={{ fontSize: ".85rem", border: "none" }}>Login</button>
       </div>
 
       {/* ── NAVBAR ── */}
@@ -587,7 +594,9 @@ export default function WanderlustTravel() {
         </ul>
 
         <div className="nav-btn-wrap" style={{ display: "flex" }}>
-          <button className="nav-btn" aria-label="Book a trip now">Book Now</button>
+          <Link to="/login">
+          <button className="nav-btn" aria-label="Book a trip now">Login</button>
+        </Link>
         </div>
 
         <button className="hamburger" onClick={() => setDrawerOpen(true)} aria-label="Open navigation menu" aria-expanded={drawerOpen}>
@@ -787,7 +796,7 @@ export default function WanderlustTravel() {
                     <div className="ph-price-lbl">Total Price</div>
                     <div className="ph-price">$1,299</div>
                   </div>
-                  <div className="ph-book">BOOK NOW</div>
+                  <div className="ph-book">Login</div>
                 </div>
               </div>
             </div>
@@ -838,7 +847,9 @@ export default function WanderlustTravel() {
               aria-label="Email address"
               autoComplete="email"
             />
-            <button className="nl-btn" onClick={() => emailRef.current?.focus()}>Subscribe</button>
+            <Link to="/Signup">
+              <button className="nl-btn" onClick={() => emailRef.current?.focus()}>Subscribe</button>
+            </Link>
           </div>
         </div>
       </section>
