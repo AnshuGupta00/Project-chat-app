@@ -568,7 +568,9 @@ export default function WanderlustTravel() {
           >{n}</a>
         ))}
         
+        <Link to="/login">
           <button className="btn-gold" style={{ fontSize: ".85rem", border: "none" }}>Login</button>
+        </Link>
       </div>
 
       {/* ── NAVBAR ── */}
