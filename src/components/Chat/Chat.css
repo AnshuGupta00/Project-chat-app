@@ -4,7 +4,8 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100vh;              /* fallback for older browsers */
+  height: 100dvh;             /* 🔧 FIX: dynamic viewport — handles mobile browser chrome */
   background-color: #111;
 }
 
@@ -13,16 +14,16 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 16px;        /* slightly tighter on small screens */
+  padding: 12px 16px;
   background-color: #1e1e1e;
   border-bottom: 1px solid #333;
-  flex-shrink: 0;             /* 🆕 prevents header from collapsing */
+  flex-shrink: 0;
 }
 
 .chat-avatar {
   width: 36px;
   height: 36px;
-  min-width: 36px;            /* 🆕 prevents shrinking in flex row */
+  min-width: 36px;
   border-radius: 50%;
   background-color: #b45309;
   color: white;
@@ -35,31 +36,32 @@
 
 .chat-header h3 {
   color: white;
-  font-size: clamp(14px, 3vw, 17px); /* 🆕 fluid font size */
+  font-size: clamp(14px, 3vw, 17px);
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;    /* 🆕 long names truncate gracefully */
+  text-overflow: ellipsis;
 }
 
 /* === MESSAGES === */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* 🔧 FIX: smooth momentum scrolling on iOS */
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  scrollbar-width: thin;      /* 🆕 cleaner scrollbar on Firefox */
+  scrollbar-width: thin;
   scrollbar-color: #444 transparent;
 }
 
 .message {
-  max-width: min(65%, 420px); /* 🆕 capped at 420px on wide screens */
+  max-width: min(65%, 420px);
   padding: 9px 13px;
   border-radius: 16px;
-  font-size: clamp(13px, 2.5vw, 14px); /* 🆕 fluid font size */
+  font-size: clamp(13px, 2.5vw, 14px);
   line-height: 1.45;
-  word-break: break-word;     /* 🆕 prevents long words overflowing */
+  word-break: break-word;
 }
 
 .message p { margin: 0; }
@@ -91,22 +93,24 @@
   display: flex;
   gap: 8px;
   padding: 12px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom)); /* 🔧 FIX: notch/home-bar spacing */
   background-color: #1e1e1e;
   border-top: 1px solid #333;
-  flex-shrink: 0;             /* 🆕 prevents input bar from collapsing */
+  flex-shrink: 0;
   align-items: center;
 }
 
 .chat-input input {
   flex: 1;
-  min-width: 0;               /* 🆕 critical: allows flex item to shrink below content size */
+  min-width: 0;
   padding: 9px 14px;
   border-radius: 24px;
   border: none;
   background-color: #2d2d2d;
   color: white;
   outline: none;
-  font-size: clamp(13px, 2.5vw, 14px);
+  font-size: 16px;            /* 🔧 FIX: prevents iOS Safari from auto-zooming on tap */
+  -webkit-appearance: none;   /* 🔧 FIX: removes iOS default input styling */
 }
 
 .chat-input input::placeholder { color: #888; }
@@ -120,8 +124,10 @@
   font-weight: bold;
   cursor: pointer;
   font-size: clamp(12px, 2.5vw, 14px);
-  white-space: nowrap;        /* 🆕 button label never wraps */
-  flex-shrink: 0;             /* 🆕 button stays full size always */
+  white-space: nowrap;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent; /* 🔧 FIX: removes grey flash on tap (iOS) */
+  touch-action: manipulation;               /* 🔧 FIX: eliminates 300ms tap delay on mobile */
 }
 
 .chat-input button:hover { background-color: #92400e; }
@@ -133,12 +139,12 @@
   justify-content: center;
   color: #aaa;
   font-size: 16px;
-  height: 100vh;
+  /* 🔧 removed height: 100vh — it's inside a flex container, this was causing overflow */
 }
 
 /* === BREAKPOINTS === */
 @media (max-width: 480px) {
-  .message { max-width: 82%; }      /* bubbles expand more on phones */
-  .chat-input { gap: 6px; padding: 10px; }
+  .message { max-width: 82%; }
+  .chat-input { gap: 6px; padding: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
   .chat-input button { padding: 9px 12px; }
 }
